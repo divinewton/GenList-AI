@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import Image from 'next/image'
 import Link from "next/link"
+import FloatingChecklistItem from "@/components/ui/FloatingChecklistItem"
 
 import {
   Card,
@@ -79,6 +80,14 @@ export default function Home() {
               </Button>
             </CardFooter>
           </Card>
+        </div>
+        <div className="absolute top-0 left-0 w-full h-0 -z-10">
+          <FloatingChecklistItem left="5rem" top="5rem" text="do the laundry"/>
+          <FloatingChecklistItem left="65rem" top="8rem" text="buy groceries"/>
+          <FloatingChecklistItem left="8rem" top="12rem" text="call mom"/>
+          <FloatingChecklistItem left="68rem" top="30rem" text="finish report"/>
+          <FloatingChecklistItem left="8rem" top="32rem" text="check the weather"/>
+          <FloatingChecklistItem left="60rem" top="40rem" text="find passport"/>
         </div>
       </main>
       <footer className="flex gap-[24px] flex-wrap items-center justify-center py-6 mt-auto">
