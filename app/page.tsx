@@ -18,10 +18,10 @@ export default function Home() {
       <main>
         <div className="flex flex-col items-center px-4 pt-8 sm:pt-16">
           <Image 
-            src="/next.svg"
+            src="/logo.svg"
             alt="Logo"
-            width={200}
-            height={50}
+            width={350}
+            height={55}
           />
           <p className="text-lg text-muted-foreground mt-10 text-center max-w-2xl mb-10">
             Instantly generate actionable checklists for any task. Just describe what you want to accomplish and let AI break it down for you!
@@ -69,7 +69,7 @@ export default function Home() {
           </Card>
         </div>
         <div className="flex items-start justify-center pt-10">
-          <Card className="w-full max-w-xl">
+          <Card className="w-full max-w-xl transition-transform duration-0 hover:scale-100">
             <CardHeader>
               <CardTitle>Generate a checklist for any task!</CardTitle>
               <Textarea placeholder="Describe your task here" id="message-2" />
@@ -81,17 +81,17 @@ export default function Home() {
             </CardFooter>
           </Card>
         </div>
-        <div className="absolute top-0 left-0 w-full h-0 -z-10">
+        {/* <div className="absolute top-0 left-0 w-full h-0 -z-10">
           <FloatingChecklistItem left="5rem" top="5rem" text="do the laundry"/>
           <FloatingChecklistItem left="65rem" top="8rem" text="buy groceries"/>
           <FloatingChecklistItem left="8rem" top="12rem" text="call mom"/>
           <FloatingChecklistItem left="68rem" top="30rem" text="finish report"/>
           <FloatingChecklistItem left="8rem" top="32rem" text="check the weather"/>
           <FloatingChecklistItem left="60rem" top="40rem" text="find passport"/>
-        </div>
+        </div> */}
       </main>
       <footer className="flex gap-[24px] flex-wrap items-center justify-center py-6 mt-auto">
-        <Button asChild type="submit" variant="link" className="self-start">
+        <Button asChild type="submit" variant="link" className="self-start hover:scale-100">
           <Link href="https://www.divinewton.com" target="_blank">©2025 Divi Newton</Link>
         </Button>
       </footer>
