@@ -3,7 +3,6 @@ import { Textarea } from "@/components/ui/textarea"
 import Image from 'next/image'
 import Link from "next/link"
 import FloatingChecklistItem from "@/components/ui/FloatingChecklistItem"
-
 import {
   Card,
   CardDescription,
@@ -17,13 +16,15 @@ export default function Home() {
     <div className="flex flex-col min-h-screen font-[family-name:var(--font-geist-sans)]">
       <main>
         <div className="flex flex-col items-center px-4 pt-8 sm:pt-16">
-          <Image 
-            src="/logo.svg"
-            alt="Logo"
-            width={350}
-            height={55}
-          />
-          <p className="text-lg text-muted-foreground mt-10 text-center max-w-2xl mb-10">
+          <a href="/">
+            <Image 
+              src="/logo.svg"
+              alt="Logo"
+              width={325}
+              height={55}
+            />
+          </a>
+          <p className="text-lg text-muted-foreground mt-5 text-center max-w-2xl mb-10">
             Instantly generate actionable checklists for any task. Just describe what you want to accomplish and let AI break it down for you!
           </p>
         </div>
