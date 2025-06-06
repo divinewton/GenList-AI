@@ -42,7 +42,14 @@ export default function Home() {
               </CardDescription>
             </CardHeader>
             <CardFooter className="flex-col gap-2">
-              <Button type="submit" variant="default" className="w-full">
+              <Button
+                type="button"
+                variant="default"
+                className="w-full"
+                onClick={() => {
+                  router.push(`/results?task=Packing%20for%20a%20Camping%20Trip`)
+                }}
+              >
                 Generate Checklist
               </Button>
             </CardFooter>
@@ -55,7 +62,14 @@ export default function Home() {
               </CardDescription>
             </CardHeader>
             <CardFooter className="flex-col gap-2">
-              <Button type="submit" variant="default" className="w-full">
+              <Button
+                type="button"
+                variant="default"
+                className="w-full"
+                onClick={() => {
+                  router.push(`/results?task=Preparing%20for%20an%20Interview`)
+                }}
+              >
                 Generate Checklist
               </Button>
             </CardFooter>
@@ -68,7 +82,14 @@ export default function Home() {
               </CardDescription>
             </CardHeader>
             <CardFooter className="flex-col gap-2">
-              <Button type="submit" variant="default" className="w-full">
+              <Button
+                type="button"
+                variant="default"
+                className="w-full"
+                onClick={() => {
+                  router.push(`/results?task=Organizing%20my%20Office`)
+                }}
+              >
                 Generate Checklist
               </Button>
             </CardFooter>
