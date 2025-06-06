@@ -1,4 +1,5 @@
-## ListGen AI
+
+![GenList AI](/public/logo.svg)
 
 First, run the development server:
 
