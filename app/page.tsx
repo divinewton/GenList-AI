@@ -1,8 +1,8 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import Image from 'next/image'
 import Link from "next/link"
-import FloatingChecklistItem from "@/components/ui/FloatingChecklistItem"
 import {
   Card,
   CardDescription,
@@ -10,8 +10,13 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export default function Home() {
+  const [input, setInput] = useState("")
+  const router = useRouter()
+
   return (
     <div className="flex flex-col min-h-screen font-[family-name:var(--font-geist-sans)]">
       <main>
@@ -73,23 +78,29 @@ export default function Home() {
           <Card className="w-full max-w-xl transition-transform duration-0 hover:scale-100">
             <CardHeader>
               <CardTitle>Generate a checklist for any task!</CardTitle>
-              <Textarea placeholder="Describe your task here" id="message-2" />
+              <Textarea
+                placeholder="Describe your task here"
+                id="prompt"
+                value={input}
+                onChange={e => setInput(e.target.value)}
+              />
             </CardHeader>
             <CardFooter className="flex-col gap-2">
-              <Button type="submit" variant="default" className="self-start">
+              <Button
+                type="button"
+                variant="default"
+                className="self-start"
+                onClick={() => {
+                  if (input.trim()) {
+                    router.push(`/results?task=${encodeURIComponent(input)}`)
+                  }
+                }}
+              >
                 Generate Checklist
               </Button>
             </CardFooter>
           </Card>
         </div>
-        {/* <div className="absolute top-0 left-0 w-full h-0 -z-10">
-          <FloatingChecklistItem left="5rem" top="5rem" text="do the laundry"/>
-          <FloatingChecklistItem left="65rem" top="8rem" text="buy groceries"/>
-          <FloatingChecklistItem left="8rem" top="12rem" text="call mom"/>
-          <FloatingChecklistItem left="68rem" top="30rem" text="finish report"/>
-          <FloatingChecklistItem left="8rem" top="32rem" text="check the weather"/>
-          <FloatingChecklistItem left="60rem" top="40rem" text="find passport"/>
-        </div> */}
       </main>
       <footer className="flex gap-[24px] flex-wrap items-center justify-center py-6 mt-auto">
         <Button asChild type="submit" variant="link" className="self-start hover:scale-100">
