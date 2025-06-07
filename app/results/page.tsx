@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox"
 
 export default function ResultsPage() {
   const searchParams = useSearchParams();
@@ -76,14 +77,8 @@ export default function ResultsPage() {
                         <ul>
                             {checklist.slice(1).map((item, idx) => (
                                 <li key={idx}>
-                                    <div className="flex flex-row items-start gap-1 pb-2">
-                                        <Image
-                                            src="/check.svg"
-                                            alt="Small Logo"
-                                            width={25}
-                                            height={25}
-                                            className="opacity-100"
-                                        />
+                                    <div className="flex flex-row items-center gap-2 pb-2">
+                                        <Checkbox />
                                         {item}
                                     </div>
                                 </li>
