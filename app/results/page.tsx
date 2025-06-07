@@ -49,7 +49,7 @@ export default function ResultsPage() {
     if (checklist.length > 0 && checklist[0]?.toLowerCase() !== "not a task") {
       document.title = checklist[0] + " - GenList AI";
     } else {
-      document.title = "Your Checklist - GenList";
+      document.title = "Your Checklist - GenList AI";
     }
   }, [checklist]);
 

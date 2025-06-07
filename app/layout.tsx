@@ -5,6 +5,11 @@ import BackgroundBlurCircle from '@/components/ui/backgroundCircle';
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Image from 'next/image'
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,24 +51,44 @@ export default function RootLayout({
           {children}
         </div>
         <footer className="w-full flex flex-wrap items-center justify-center relative py-6">
-          <Button asChild type="submit" variant="link" className="self-start hover:scale-100 mx-auto">
-            <Link href="https://www.divinewton.com" target="_blank">©2025 Divi Newton</Link>
-          </Button>
-          <div className="absolute right-6 flex items-center gap-2">
-            <Button asChild type="submit" variant="ghost" className="self-start hover:scale-100 opacity-75">
-              <Link href="https://github.com/divinewton/ai-checklist/releases/" target="_blank">v1.0.0</Link>
-            </Button>
-            <Button asChild type="submit" variant="ghost" size="icon" className="self-start hover:scale-100 opacity-75">
-              <Link href="https://github.com/divinewton/ai-checklist" target="_blank">
-                <Image 
-                  src="/github.png"
+          <HoverCard>
+            <HoverCardTrigger>
+              <p className="text-secondary-foreground underline-offset-4 hover:underline cursor-pointer text-sm font-medium">©2025 Divi Newton</p>
+            </HoverCardTrigger>
+            <HoverCardContent>
+              <div className="flex flex-col items-center justify-center">
+                <p>Version 1.0.0</p>
+                <a
+                  href="https://github.com/divinewton/ai-checklist"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 hover:underline"
+                >
+                  <p>GitHub</p>
+                  <Image 
+                  src="/link.svg"
                   alt="GitHub"
-                  width={25}
-                  height={25}
-              />
-              </Link>
-            </Button>
-          </div>
+                  width={18}
+                  height={18}
+                  />
+                </a>
+                <a
+                  href="https://divinewton.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 hover:underline"
+                >
+                  <p>divinewton.com</p>
+                  <Image 
+                  src="/link.svg"
+                  alt="divinewton.com"
+                  width={18}
+                  height={18}
+                  />
+                </a>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
         </footer>
       </body>
     </html>
