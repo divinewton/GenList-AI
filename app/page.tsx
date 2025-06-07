@@ -18,17 +18,9 @@ export default function Home() {
   const router = useRouter()
 
   return (
-    <div className="flex flex-col min-h-screen font-[family-name:var(--font-geist-sans)]">
+    <div className="flex flex-col font-[family-name:var(--font-geist-sans)]">
       <main>
-        <div className="flex flex-col items-center px-4 pt-8 sm:pt-16">
-          <a href="/">
-            <Image 
-              src="/logo.svg"
-              alt="Logo"
-              width={325}
-              height={55}
-            />
-          </a>
+        <div className="flex flex-col items-center px-4">
           <p className="text-lg text-muted-foreground mt-5 text-center max-w-2xl mb-10">
             Instantly generate actionable checklists for any task. Just describe what you want to accomplish and let AI break it down for you!
           </p>
@@ -123,11 +115,6 @@ export default function Home() {
           </Card>
         </div>
       </main>
-      <footer className="flex gap-[24px] flex-wrap items-center justify-center py-6 mt-auto">
-        <Button asChild type="submit" variant="link" className="self-start hover:scale-100">
-          <Link href="https://www.divinewton.com" target="_blank">©2025 Divi Newton</Link>
-        </Button>
-      </footer>
     </div>
   );
 }

@@ -37,7 +37,7 @@ If, and only if, the input is an actionable task, you must generate a checklist 
 1.  The entire output must be a single, valid JSON array of strings. Do not include any text or markdown formatting before or after the JSON array.
 2.  The very first string in the array must be a clear and concise title for the checklist.
 3.  All subsequent strings in the array must be the individual checklist items.
-4.  The array should contain a total of 21 to 51 strings (1 for the title, plus 20 to 50 for the checklist items).
+4.  The array should contain a total of 5 to 50 strings (1 for the title, plus 4 to 49 for the checklist items).
 5.  Each checklist item should be a short, distinct, and actionable step.
 6.  Do not include any section headings or subtitles as separate items in the array.
 
