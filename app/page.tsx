@@ -1,8 +1,6 @@
 "use client"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
-import Image from 'next/image'
-import Link from "next/link"
 import {
   Card,
   CardDescription,
@@ -12,6 +10,7 @@ import {
 } from "@/components/ui/card"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import ExampleCard from "@/components/ui/example-card"
 
 export default function Home() {
   const [input, setInput] = useState("")
@@ -26,66 +25,27 @@ export default function Home() {
           </p>
         </div>
         <div className="flex gap-5 flex-wrap items-center px-4 justify-center">
-          <Card className="w-full max-w-xs">
-            <CardHeader>
-              <CardTitle>Packing for a Camping Trip</CardTitle>
-              <CardDescription>
-                I'm packing for a three-day car-camping trip by a lake in the mountains. It's supposed to be sunny but highs in the 50s and 60s.
-              </CardDescription>
-            </CardHeader>
-            <CardFooter className="flex-col gap-2">
-              <Button
-                type="button"
-                variant="default"
-                className="w-full"
-                onClick={() => {
-                  router.push(`/results?task=Packing%20for%20a%20Camping%20Trip`)
-                }}
-              >
-                Generate Checklist
-              </Button>
-            </CardFooter>
-          </Card>
-          <Card className="w-full max-w-xs">
-            <CardHeader>
-              <CardTitle>Preparing for an Interview</CardTitle>
-              <CardDescription>
-                I'm preparing for a job interview for a marketing specialist position at a tech startup. The interview is next week with two hiring managers.
-              </CardDescription>
-            </CardHeader>
-            <CardFooter className="flex-col gap-2">
-              <Button
-                type="button"
-                variant="default"
-                className="w-full"
-                onClick={() => {
-                  router.push(`/results?task=Preparing%20for%20an%20Interview`)
-                }}
-              >
-                Generate Checklist
-              </Button>
-            </CardFooter>
-          </Card>
-          <Card className="w-full max-w-xs">
-            <CardHeader>
-              <CardTitle>Organizing my Office</CardTitle>
-              <CardDescription>
-                I'm reorganizing my home office space to be more functional and clutter-free. My work involves a lot of computer use and occasional paperwork.
-              </CardDescription>
-            </CardHeader>
-            <CardFooter className="flex-col gap-2">
-              <Button
-                type="button"
-                variant="default"
-                className="w-full"
-                onClick={() => {
-                  router.push(`/results?task=Organizing%20my%20Office`)
-                }}
-              >
-                Generate Checklist
-              </Button>
-            </CardFooter>
-          </Card>
+          <ExampleCard
+            title="Packing for a Camping Trip"
+            description="Get a detailed packing list for your trip, including everything you'll need."
+            icon="/camping.svg"
+            alt="Packing List"
+            task="Packing for a Camping Trip"
+          />
+          <ExampleCard
+            title="Preparing for an Interview"
+            description="Get an in-depth interview preparation guide to help you be prepare."
+            icon="/interview.svg"
+            alt="Interview Prep"
+            task="Preparing for an Interview"
+          />
+          <ExampleCard
+            title="Organizing my Office"
+            description="Get a step-by-step plan to help you organize your workspace efficiently."
+            icon="/office.svg"
+            alt="Organizing Office"
+            task="Organizing my Office"
+          />
         </div>
         <div className="flex items-start justify-center pt-10">
           <Card className="w-full max-w-xl transition-transform duration-0 hover:scale-100">
