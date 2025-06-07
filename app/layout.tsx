@@ -51,7 +51,7 @@ export default function RootLayout({
           </Button>
           <div className="absolute right-6 flex items-center gap-2">
             <Button asChild type="submit" variant="ghost" className="self-start hover:scale-100 opacity-75">
-              <Link href="https://github.com/divinewton/ai-checklist" target="_blank">v1.0.0</Link>
+              <Link href="https://github.com/divinewton/ai-checklist/releases/" target="_blank">v1.0.0</Link>
             </Button>
             <Button asChild type="submit" variant="ghost" size="icon" className="self-start hover:scale-100 opacity-75">
               <Link href="https://github.com/divinewton/ai-checklist" target="_blank">
