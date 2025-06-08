@@ -1,4 +1,4 @@
-import { Card, CardHeader } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
@@ -15,7 +15,7 @@ export default function EnterTaskCard({
   return (
     <div className="flex items-start justify-center pt-10 px-5 md:px-10 enter-task-sticky max-w-full">
       <Card className="w-full max-w-2xl transition-transform duration-0 hover:scale-100">
-        <CardHeader>
+        <CardContent>
           <div className="flex flex-row gap-3 items-center justify-center w-full">
             <Textarea
               placeholder="Generate a checklist for any task..."
@@ -45,7 +45,7 @@ export default function EnterTaskCard({
               />
           </Button>
           </div>
-        </CardHeader>
+        </CardContent>
       </Card>
     </div>
   )
