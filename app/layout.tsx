@@ -68,7 +68,7 @@ export default function RootLayout({
               <div className="flex flex-col items-center justify-center">
                 <p>Version 1.0.0</p>
                 <a
-                  href="https://github.com/divinewton/ai-checklist"
+                  href="https://github.com/divinewton/GenList-AI"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1 hover:underline"
