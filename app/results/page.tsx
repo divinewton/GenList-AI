@@ -1,4 +1,5 @@
 "use client"
+import { Suspense, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
 import Link from "next/link"
@@ -7,10 +8,10 @@ import {
   CardContent
 } from "@/components/ui/card"
 import { useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox"
 
-export default function ResultsPage() {
+// Move all logic into a child component
+function ResultsContent() {
   const searchParams = useSearchParams();
   const task = searchParams.get("task") || "";
   const [checklist, setChecklist] = useState<string[]>([]);
@@ -156,4 +157,13 @@ export default function ResultsPage() {
       </main>
     </div>
   )
+}
+
+// Default export wraps ResultsContent in Suspense
+export default function ResultsPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center h-screen"><Image src="/loading.gif" alt="Loading..." width={100} height={100} className="opacity-75" /></div>}>
+      <ResultsContent />
+    </Suspense>
+  );
 }
