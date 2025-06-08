@@ -12,7 +12,7 @@ export default function EnterTaskCard({
   onSubmit: () => void
 }) {
   return (
-    <div className="flex items-start justify-center pt-10">
+    <div className="flex items-start justify-center pt-10 px-5 md:px-10">
       <Card className="w-full max-w-2xl transition-transform duration-0 hover:scale-100">
         <CardHeader>
           <CardTitle>Generate a checklist for any task!</CardTitle>

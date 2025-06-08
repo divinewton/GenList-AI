@@ -37,15 +37,17 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <BackgroundBlurCircle/><BackgroundBlurCircle />
-        <div className="flex flex-col items-center px-4 pt-8 sm:pt-16">
-          <a href="/">
+        <div className="flex flex-col items-center px-4 pt-16">
+            <a href="/" className="block">
             <Image 
               src="/logo.svg"
               alt="Logo"
               width={325}
               height={55}
+              className="w-[250px] sm:w-[325px] h-auto"
+              priority
             />
-          </a>
+            </a>
         </div>
         <div className="flex-1 flex flex-col w-full">
           {children}
