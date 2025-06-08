@@ -1,16 +1,8 @@
 "use client"
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import ExampleCard from "@/components/ui/example-card"
+import EnterTaskCard from "@/components/ui/enter-task-card"
 
 export default function Home() {
   const [input, setInput] = useState("")
@@ -47,33 +39,15 @@ export default function Home() {
             task="Organizing my Office"
           />
         </div>
-        <div className="flex items-start justify-center pt-10">
-          <Card className="w-full max-w-xl transition-transform duration-0 hover:scale-100">
-            <CardHeader>
-              <CardTitle>Generate a checklist for any task!</CardTitle>
-              <Textarea
-                placeholder="Describe your task here"
-                id="prompt"
-                value={input}
-                onChange={e => setInput(e.target.value)}
-              />
-            </CardHeader>
-            <CardFooter className="flex-col gap-2">
-              <Button
-                type="button"
-                variant="default"
-                className="self-start"
-                onClick={() => {
-                  if (input.trim()) {
-                    router.push(`/results?task=${encodeURIComponent(input)}`)
-                  }
-                }}
-              >
-                Generate Checklist
-              </Button>
-            </CardFooter>
-          </Card>
-        </div>
+        <EnterTaskCard
+          input={input}
+          setInput={setInput}
+          onSubmit={() => {
+            if (input.trim()) {
+              router.push(`/results?task=${encodeURIComponent(input)}`)
+            }
+          }}
+        />
       </main>
     </div>
   );

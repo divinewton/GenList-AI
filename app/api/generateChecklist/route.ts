@@ -60,9 +60,6 @@ Now, process the task and respond according to all of the instructions above.
       contents: prompt,
     });
 
-    // Log the raw response for debugging
-    console.log("Gemini API response:", JSON.stringify(response));
-
     // Extract checklist from response.text
     let checklist: string[] = [];
     try {
@@ -73,9 +70,7 @@ Now, process the task and respond according to all of the instructions above.
       // Remove Markdown code block if present
       text = text.trim();
       if (text.startsWith("```")) {
-        // Remove the first line (```json or ```)
         text = text.replace(/^```[a-zA-Z]*\n/, "");
-        // Remove the last line (```)
         text = text.replace(/\n```$/, "");
       }
       checklist = JSON.parse(text);
