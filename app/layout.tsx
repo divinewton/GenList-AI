@@ -23,7 +23,14 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "GenList AI",
-  description: "Instantly generate actionable checklists for any task.",
+  description: "Instantly generate actionable checklists for any task using artificial intelligence.",
+  metadataBase: new URL("https://genlist.divinewton.com/"),
+  openGraph: {
+    images: '/genlist.png',
+  },
+  twitter: {
+    images: '/genlist.png',
+  },
 };
 
 export default function RootLayout({
