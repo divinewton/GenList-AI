@@ -1,6 +1,7 @@
-import { Card, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
+import { Card, CardHeader } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
+import Image from 'next/image'
 
 export default function EnterTaskCard({
   input,
@@ -12,29 +13,39 @@ export default function EnterTaskCard({
   onSubmit: () => void
 }) {
   return (
-    <div className="flex items-start justify-center pt-10 px-5 md:px-10 enter-task-sticky">
+    <div className="flex items-start justify-center pt-10 px-5 md:px-10 enter-task-sticky max-w-full">
       <Card className="w-full max-w-2xl transition-transform duration-0 hover:scale-100">
         <CardHeader>
-          <CardTitle>Generate a checklist for any task!</CardTitle>
-          <div className="flex items-center justify-center">
+          <div className="flex flex-row gap-3 items-center justify-center w-full">
             <Textarea
-                placeholder="Describe your task here"
-                id="prompt"
-                value={input}
-                onChange={e => setInput(e.target.value)}
+              placeholder="Generate a checklist for any task..."
+              id="prompt"
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              className="self-end flex-1 w-full"
+              onKeyDown={e => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  onSubmit();
+                }
+              }}
             />
+            <Button
+              type="button"
+              variant="default"
+              className="self-end"
+              onClick={onSubmit}
+              size="icon"
+            >
+              <Image 
+                src="/send.svg"
+                alt="Send"
+                width={18}
+                height={18}
+              />
+          </Button>
           </div>
         </CardHeader>
-        <CardFooter className="flex-col gap-2">
-          <Button
-            type="button"
-            variant="default"
-            className="self-start"
-            onClick={onSubmit}
-          >
-            Generate Checklist
-          </Button>
-        </CardFooter>
       </Card>
     </div>
   )
