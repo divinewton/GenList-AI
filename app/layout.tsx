@@ -2,14 +2,13 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import BackgroundBlurCircle from '@/components/ui/backgroundCircle';
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import Image from 'next/image'
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
+import MenuIcons from "@/components/ui/menu-icons"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +43,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <BackgroundBlurCircle/><BackgroundBlurCircle />
+        <MenuIcons />
         <div className="flex flex-col items-center px-4 pt-16">
             <a href="/" className="block">
             <Image 
