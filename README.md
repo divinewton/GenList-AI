@@ -9,6 +9,6 @@ Website made using Next.js React framework, TypeScript, and Tailwind CSS. See al
 ## Resources
 - Hosting: Vercel
 - Source Management: [GitHub](https://github.com/divinewton/GenList-AI)
-- Colors: [Realtime Colors](https://www.realtimecolors.com/?colors=060807-f9fbfa-5db697-96ddc4-58dbae&fonts=Inter-Inter)
+- Colors: [Realtime Colors](https://www.realtimecolors.com/?colors=060807-f9fbfa-5db697-96ddc4-58dbae&fonts=Inter-Inter), [(Dark Mode)](https://www.realtimecolors.com/?colors=f6f8f7-040605-49a283-22684f-24a87a&fonts=Inter-Inter)
 - Component Library: [shadcn](https://ui.shadcn.com/docs/components)
 - Gemini API: [Google AI Studio](https://aistudio.google.com/usage)

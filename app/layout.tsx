@@ -9,6 +9,8 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
 import MenuIcons from "@/components/ui/menu-icons"
+import { ThemeProvider } from "@/components/theme-provider"
+import { ExternalLink } from 'lucide-react';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,10 +40,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
         <BackgroundBlurCircle/><BackgroundBlurCircle />
         <MenuIcons />
         <div className="flex flex-col items-center px-4 pt-16">
@@ -74,12 +82,7 @@ export default function RootLayout({
                   className="flex items-center gap-1 hover:underline"
                 >
                   <p>GitHub</p>
-                  <Image 
-                  src="/link.svg"
-                  alt="GitHub"
-                  width={18}
-                  height={18}
-                  />
+                  <ExternalLink className="h-[1.125rem] w-[1.125rem] scale-100 " />
                 </a>
                 <a
                   href="https://divinewton.com"
@@ -88,17 +91,13 @@ export default function RootLayout({
                   className="flex items-center gap-1 hover:underline"
                 >
                   <p>divinewton.com</p>
-                  <Image 
-                  src="/link.svg"
-                  alt="divinewton.com"
-                  width={18}
-                  height={18}
-                  />
+                  <ExternalLink className="h-[1.125rem] w-[1.125rem] scale-100 " />
                 </a>
               </div>
             </HoverCardContent>
           </HoverCard>
         </footer>
+        </ThemeProvider>
       </body>
     </html>
   );
