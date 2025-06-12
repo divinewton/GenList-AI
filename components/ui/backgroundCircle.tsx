@@ -10,7 +10,7 @@ const BackgroundBlurCircle: React.FC<BackgroundCircle> = ({ className }) => {
     <>
     <div
       className={cn(
-        'fixed -z-10 rounded-full bg-blue-900/10 blur-3xl',
+        'fixed -z-10 rounded-full bg-[color:var(--circle1)] blur-3xl',
         'w-[400px] h-[400px]',
         '-top-60 -left-20',
         className 
@@ -19,7 +19,7 @@ const BackgroundBlurCircle: React.FC<BackgroundCircle> = ({ className }) => {
     />
     <div
       className={cn(
-        'fixed -z-10 rounded-full bg-blue-900/5 blur-3xl',
+        'fixed -z-10 rounded-full bg-[color:var(--circle2)] blur-3xl',
         'w-[700px] h-[700px]',
         'top-100 left-200',
         className 

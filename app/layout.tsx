@@ -50,18 +50,29 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-        <BackgroundBlurCircle/><BackgroundBlurCircle />
+        <div className="dark:hidden">
+          <BackgroundBlurCircle/>
+          <BackgroundBlurCircle />
+        </div>
         <MenuIcons />
         <div className="flex flex-col items-center px-4 pt-16">
             <a href="/" className="block">
-            <Image 
-              src="/logo.svg"
-              alt="Logo"
-              width={325}
-              height={55}
-              className="w-[250px] sm:w-[325px] h-auto"
-              priority
-            />
+              <Image 
+                src="/logo.svg"
+                alt="Logo"
+                width={325}
+                height={55}
+                className="w-[250px] sm:w-[325px] h-auto block dark:hidden"
+                priority
+              />
+              <Image 
+                src="/logo-dark.svg"
+                alt="Logo (dark mode)"
+                width={325}
+                height={55}
+                className="w-[250px] sm:w-[325px] h-auto hidden dark:block"
+                priority
+              />
             </a>
         </div>
         <div className="flex-1 flex flex-col w-full">

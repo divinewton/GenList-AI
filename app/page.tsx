@@ -21,6 +21,7 @@ export default function Home() {
             title="Packing for a Camping Trip"
             description="Get a detailed packing list for your trip, including everything you'll need."
             icon="/camping.svg"
+            iconDark="/camping-dark.svg"
             alt="Packing List"
             task="Packing for a Camping Trip"
           />
@@ -28,6 +29,7 @@ export default function Home() {
             title="Preparing for an Interview"
             description="Get an in-depth interview preparation guide to help you be prepare."
             icon="/interview.svg"
+            iconDark="/interview-dark.svg"
             alt="Interview Prep"
             task="Preparing for an Interview"
           />
@@ -35,6 +37,7 @@ export default function Home() {
             title="Organizing my Office"
             description="Get a step-by-step plan to help you organize your workspace efficiently."
             icon="/office.svg"
+            iconDark="/office-dark.svg"
             alt="Organizing Office"
             task="Organizing my Office"
           />
