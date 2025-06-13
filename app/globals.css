@@ -124,7 +124,7 @@
     background: linear-gradient(to right, oklch(0.8435 0.0796 170.3 / .25), oklch(0.8067 0.1329 167.16 / .25));
   }
   .dark body {
-    background: linear-gradient(to right, oklch(0.4663 0.081 165.77 / .10), oklch(0.6519 0.1298 163.91 / .10));
+    background: linear-gradient(to right, oklch(0.4663 0.081 165.77 / .05), oklch(0.6519 0.1298 163.91 / .05));
   }
 }
 
