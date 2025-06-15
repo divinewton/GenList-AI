@@ -13,7 +13,7 @@ export default function Home() {
       <main>
         <div className="flex flex-col items-center px-4">
           <p className="text-lg text-muted-foreground mt-5 text-center max-w-2xl mb-10">
-            Instantly generate actionable checklists for any task. Just describe what you want to accomplish and let AI break it down for you!
+            Instantly generate actionable checklists for any task using AI.<span className="no-subtitle"> Simply describe what you want to accomplish and let AI break it down!</span>
           </p>
         </div>
         <div className="flex gap-5 flex-wrap items-center px-4 justify-center">

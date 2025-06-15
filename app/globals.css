@@ -166,3 +166,12 @@
     padding-bottom: calc(var(--spacing) * 10);
   }
 }
+
+@media (max-width: 430px) {
+  .no-subtitle {
+    display: none;
+  }
+  .top-logo-p {
+    padding-top: calc(var(--spacing) * 20);
+  }
+}

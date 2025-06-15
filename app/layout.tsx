@@ -55,7 +55,7 @@ export default function RootLayout({
           <BackgroundBlurCircle />
         </div>
         <MenuIcons />
-        <div className="flex flex-col items-center px-4 pt-16">
+        <div className="flex flex-col items-center px-4 pt-16 top-logo-p">
             <a href="/" className="block">
               <Image 
                 src="/logo.svg"
