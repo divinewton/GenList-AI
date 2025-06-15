@@ -11,6 +11,7 @@ import {
 import MenuIcons from "@/components/ui/menu-icons"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ExternalLink } from 'lucide-react';
+import VersionText from "@/components/version-text"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -85,7 +86,7 @@ export default function RootLayout({
             </HoverCardTrigger>
             <HoverCardContent>
               <div className="flex flex-col items-center justify-center">
-                <p>Version 1.0.0</p>
+                <VersionText></VersionText>
                 <a
                   href="https://github.com/divinewton/GenList-AI"
                   target="_blank"
