@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import BackgroundBlurCircle from '@/components/ui/backgroundCircle';
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import Image from 'next/image'
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
+import MenuIcons from "@/components/ui/menu-icons"
+import { ThemeProvider } from "@/components/theme-provider"
+import { ExternalLink } from 'lucide-react';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,21 +40,39 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <BackgroundBlurCircle/><BackgroundBlurCircle />
-        <div className="flex flex-col items-center px-4 pt-16">
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+        <div className="dark:hidden">
+          <BackgroundBlurCircle/>
+          <BackgroundBlurCircle />
+        </div>
+        <MenuIcons />
+        <div className="flex flex-col items-center px-4 pt-16 top-logo-p">
             <a href="/" className="block">
-            <Image 
-              src="/logo.svg"
-              alt="Logo"
-              width={325}
-              height={55}
-              className="w-[250px] sm:w-[325px] h-auto"
-              priority
-            />
+              <Image 
+                src="/logo.svg"
+                alt="Logo"
+                width={325}
+                height={55}
+                className="w-[250px] sm:w-[325px] h-auto block dark:hidden"
+                priority
+              />
+              <Image 
+                src="/logo-dark.svg"
+                alt="Logo (dark mode)"
+                width={325}
+                height={55}
+                className="w-[250px] sm:w-[325px] h-auto hidden dark:block"
+                priority
+              />
             </a>
         </div>
         <div className="flex-1 flex flex-col w-full">
@@ -74,12 +93,7 @@ export default function RootLayout({
                   className="flex items-center gap-1 hover:underline"
                 >
                   <p>GitHub</p>
-                  <Image 
-                  src="/link.svg"
-                  alt="GitHub"
-                  width={18}
-                  height={18}
-                  />
+                  <ExternalLink className="h-[1.125rem] w-[1.125rem] scale-100 " />
                 </a>
                 <a
                   href="https://divinewton.com"
@@ -88,17 +102,13 @@ export default function RootLayout({
                   className="flex items-center gap-1 hover:underline"
                 >
                   <p>divinewton.com</p>
-                  <Image 
-                  src="/link.svg"
-                  alt="divinewton.com"
-                  width={18}
-                  height={18}
-                  />
+                  <ExternalLink className="h-[1.125rem] w-[1.125rem] scale-100 " />
                 </a>
               </div>
             </HoverCardContent>
           </HoverCard>
         </footer>
+        </ThemeProvider>
       </body>
     </html>
   );

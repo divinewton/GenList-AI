@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import Image from 'next/image'
+import { SendHorizontal } from 'lucide-react';
 
 export default function EnterTaskCard({
   input,
@@ -37,12 +37,7 @@ export default function EnterTaskCard({
               onClick={onSubmit}
               size="icon"
             >
-              <Image 
-                src="/send.svg"
-                alt="Send"
-                width={18}
-                height={18}
-              />
+              <SendHorizontal className="h-[2rem] w-[2rem] scale-100 " />
           </Button>
           </div>
         </CardContent>
