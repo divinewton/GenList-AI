@@ -14,7 +14,7 @@ export default function EnterTaskCard({
 }) {
   return (
     <div className="flex items-start justify-center pt-10 px-5 md:px-10 enter-task-sticky max-w-full">
-      <Card className="w-full max-w-2xl transition-transform duration-0 hover:scale-100">
+      <Card className="w-full max-w-2xl transition-transform duration-0 hover:scale-100 rounded-3xl">
         <CardContent>
           <div className="w-full flex justify-center items-center">
             <div className="relative w-full">
