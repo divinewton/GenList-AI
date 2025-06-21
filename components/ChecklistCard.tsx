@@ -5,6 +5,7 @@ interface ChecklistCardProps {
   id: string;
   title: string;
   category: number;
+  date: string;
   onClick?: () => void;
 }
 
@@ -15,7 +16,7 @@ const categoryIcons: Record<number, React.ReactNode> = {
   4: <Calendar size={40} />,
 };
 
-export function ChecklistCard({ id, title, category, onClick }: ChecklistCardProps) {
+export function ChecklistCard({ id, title, category, date, onClick }: ChecklistCardProps) {
   function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     if (onClick && (e.key === "Enter" || e.key === " ")) {
       onClick();
@@ -34,6 +35,9 @@ export function ChecklistCard({ id, title, category, onClick }: ChecklistCardPro
       <CardContent className="flex flex-col items-center justify-center h-full w-full">
         <span className="mb-2">{icon}</span>
         <span className="text-base font-semibold text-center">{title}</span>
+        <div className="text-sm text-center mt-2 opacity-50">
+            <p>{date}</p>
+        </div>
       </CardContent>
     </Card>
   );

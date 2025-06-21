@@ -54,6 +54,26 @@ function ResultsContent() {
     }
   }, [checklist]);
 
+  // Type for a saved checklist
+  interface SavedChecklist {
+    id: string;
+    title: string;
+    items: string[];
+    createdAt: number;
+  }
+
+  function saveChecklistToLocalStorage(checklist: string[]) {
+    if (checklist.length < 2) return;
+    const saved: SavedChecklist = {
+      id: crypto.randomUUID(),
+      title: checklist[0],
+      items: checklist.slice(1),
+      createdAt: Date.now(),
+    };
+    const existing = JSON.parse(localStorage.getItem("savedChecklists") || "[]");
+    localStorage.setItem("savedChecklists", JSON.stringify([saved, ...existing]));
+  }
+
   return (
     <div className="flex flex-col font-[family-name:var(--font-geist-sans)]">
       <main>
@@ -117,9 +137,19 @@ function ResultsContent() {
             <>
               <Card className="w-auto transition-transform duration-0 hover:scale-100 p-5 pt-8">
                 <CardContent>
-                  <h1 className="text-2xl font-bold mb-4 text-center w-full">
-                    {checklist[0]}
-                  </h1>
+                  <div className="flex items-center justify-center mb-4 w-full gap-4">
+                    <h1 className="text-2xl font-bold text-center flex-1">
+                      {checklist[0]}
+                    </h1>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      aria-label="Action"
+                      onClick={() => saveChecklistToLocalStorage(checklist)}
+                    >
+                      Save
+                    </Button>
+                  </div>
                   <ul>
                     <li>
                       <div className="flex flex-row items-center gap-2 pb-3">
