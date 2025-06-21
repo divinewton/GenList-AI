@@ -1,5 +1,6 @@
 "use client"
 import { ChecklistCard } from "@/components/ChecklistCard";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -22,15 +23,19 @@ export default function SavedContent() {
                     <div className="flex items-center justify-center flex-wrap gap-5">
                         {saved.length === 0 && 
                             <>
-                            <p className="text-muted-foreground">No saved checklists yet.</p>
-                            <div className="flex items-start justify-center pt-10">
+                            <div className="flex flex-col items-center w-full">
+                                <Card className="w-auto transition-transform duration-0 hover:scale-100 p-5">
+                                    <CardContent>
+                                        <p>You don't have any saved checklists yet. Generate a checklist and click "Save" to access it later!</p>
+                                    </CardContent>
+                                </Card>
                                 <Button
                                     asChild
                                     type="button"
                                     variant="default"
-                                    className="self-start"
+                                    className="mt-6"
                                 >
-                                    <Link href="/">Generate Another Checklist</Link>
+                                    <Link href="/">Generate a Checklist</Link>
                                 </Button>
                             </div>
                             </>
