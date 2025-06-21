@@ -2,16 +2,21 @@
 import { ChecklistCard } from "@/components/ChecklistCard";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Image from 'next/image'
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 
-export default function SavedContent() {
+function SavedContent() {
     const [saved, setSaved] = useState([]);
 
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem("savedChecklists") || "[]");
         setSaved(data);
     }, []);
+
+    function handleDelete(id: string) {
+        setSaved((prev) => prev.filter((item: any) => item.id !== id));
+    }
 
     return (
         <div className="flex flex-col font-[family-name:var(--font-geist-sans)]">
@@ -47,6 +52,7 @@ export default function SavedContent() {
                                 title={item.title}
                                 category={1}
                                 date={new Date(item.createdAt).toLocaleDateString()}
+                                onDelete={handleDelete}
                             />
                         ))}
                     </div>
@@ -54,4 +60,13 @@ export default function SavedContent() {
             </main>
         </div>
     );
+}
+
+// Default export wraps SavedContent in Suspense
+export default function SavedPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center h-screen"><Image src="/loading.gif" alt="Loading..." width={100} height={100} className="opacity-75" /></div>}>
+      <SavedContent />
+    </Suspense>
+  );
 }

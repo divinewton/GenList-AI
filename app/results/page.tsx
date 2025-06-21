@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card"
 import { useSearchParams } from "next/navigation"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Check } from "lucide-react"
 
 // Move all logic into a child component
 function ResultsContent() {
@@ -17,6 +18,7 @@ function ResultsContent() {
   const [checklist, setChecklist] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [listSaved, setListSaved] = useState(false);
 
   useEffect(() => {
     if (!task) return;
@@ -72,6 +74,7 @@ function ResultsContent() {
     };
     const existing = JSON.parse(localStorage.getItem("savedChecklists") || "[]");
     localStorage.setItem("savedChecklists", JSON.stringify([saved, ...existing]));
+    setListSaved(true);
   }
 
   return (
@@ -141,6 +144,7 @@ function ResultsContent() {
                     <h1 className="text-2xl font-bold text-center flex-1">
                       {checklist[0]}
                     </h1>
+                    {listSaved == false && (
                     <Button
                       variant="outline"
                       size="sm"
@@ -149,6 +153,19 @@ function ResultsContent() {
                     >
                       Save
                     </Button>
+                    )}
+                    {listSaved == true && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      aria-label="Saved"
+                      disabled
+                      className="opacity-50 pointer-events-none"
+                    >
+                      Saved
+                      <Check></Check>
+                    </Button>
+                    )}
                   </div>
                   <ul>
                     <li>
