@@ -3,58 +3,72 @@ import { Suspense, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
 import Link from "next/link"
-import {
-  Card,
-  CardContent
-} from "@/components/ui/card"
+import { useRouter } from "next/navigation";
+import { Card, CardContent } from "@/components/ui/card"
 import { useSearchParams } from "next/navigation"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Check } from "lucide-react"
+import { Check, CircleX } from "lucide-react"
 
-// Move all logic into a child component
 function ResultsContent() {
   const searchParams = useSearchParams();
-  const task = searchParams.get("task") || "";
+  const task = searchParams.get("task");
+  const listId = searchParams.get("list");
   const [checklist, setChecklist] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [listSaved, setListSaved] = useState(false);
+  const [loadedSavedChecklist, setLoadedSavedChecklist] = useState<any | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
-    if (!task) return;
-    setLoading(true);
-    setError(null);
-    fetch("/api/generateChecklist", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ task }),
-    })
-      .then(async (res) => {
-        if (!res.ok) {
-          const err = await res.json();
-          throw new Error(err.error || "Failed to fetch checklist");
-        }
-        return res.json();
+    if (task) {
+      setLoading(true);
+      setError(null);
+      fetch("/api/generateChecklist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ task }),
       })
-      .then((data) => {
-        console.log("API response:", data);
-        setChecklist(data.checklist || []);
-        // Debug: log the response
-        if (!data.checklist || !Array.isArray(data.checklist)) {
-          setError("Checklist not found in response.");
+        .then(async (res) => {
+          if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.error || "Failed to fetch checklist");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          setChecklist(data.checklist || []);
+          if (!data.checklist || !Array.isArray(data.checklist)) {
+            setError("Checklist not found in response.");
+          }
+        })
+        .catch((err) => setError(err.message))
+        .finally(() => setLoading(false));
+    } else if (listId) {
+      setLoading(true);
+      setError(null);
+      Promise.resolve().then(() => {
+        const saved = JSON.parse(localStorage.getItem("savedChecklists") || "[]");
+        const found = saved.find((item: any) => item.id === listId);
+        if (found) {
+          setLoadedSavedChecklist(found);
+        } else {
+          setError("Checklist not found.");
         }
-      })
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, [task]);
+      }).finally(() => setLoading(false));
+    } else if (!task && !listId) {
+      router.push("/saved");
+    }
+  }, [task, listId]);
 
   useEffect(() => {
     if (checklist.length > 0 && checklist[0]?.toLowerCase() !== "not a task") {
       document.title = checklist[0] + " - GenList AI";
+    } else if (loadedSavedChecklist) {
+      document.title = loadedSavedChecklist.title + " - GenList AI";
     } else {
       document.title = "Your Checklist - GenList AI";
     }
-  }, [checklist]);
+  }, [checklist, loadedSavedChecklist]);
 
   // Type for a saved checklist
   interface SavedChecklist {
@@ -74,7 +88,7 @@ function ResultsContent() {
     };
     const existing = JSON.parse(localStorage.getItem("savedChecklists") || "[]");
     localStorage.setItem("savedChecklists", JSON.stringify([saved, ...existing]));
-    setListSaved(true);
+    router.replace("/results?list=" + saved.id);
   }
 
   return (
@@ -93,42 +107,16 @@ function ResultsContent() {
           {error && 
             <Card className="w-auto transition-transform duration-0 hover:scale-100 p-5">
               <CardContent>
-              <div className="flex flex-col items-center">
-                <h1 className="text-2xl text-muted-foreground mb-4 text-center w-full">
-                Oops, it looks like there was an error...
-                </h1>
-                <Image
-                  src="/error.svg"
-                  alt="Error"
-                  width={200}
-                  height={200}
-                  className="mb-4 opacity-75"
-                />
-                <p style={{ color: "red" }}>{error}</p>
-              </div>
+                <div className="flex flex-col items-center">
+                  <p>Oops, it looks like there was an error...</p>
+                  <div className="flex gap-2 items-center justify-center pt-2">
+                    <CircleX className="text-destructive size-4"></CircleX>
+                    <p className="text-destructive">{error}</p>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           }
-          {!loading && !error && checklist.length === 0 && (
-            <Card className="w-auto transition-transform duration-0 hover:scale-100 p-5">
-              <CardContent>
-              <div className="flex flex-col items-center">
-                <h1 className="text-2xl text-muted-foreground mb-4 text-center w-full">
-                Oops, it looks like there was an error...
-                </h1>
-                <Image
-                  src="/error.svg"
-                  alt="Error"
-                  width={200}
-                  height={200}
-                  className="mb-4 opacity-75"
-                  unoptimized
-                />
-                <p>No checklist generated.</p>
-              </div>
-              </CardContent>
-            </Card>
-          )}
           {checklist.length > 1 && checklist[0]?.toLowerCase() === "not a task" && (
             <Card className="w-auto transition-transform duration-0 hover:scale-100 p-5">
               <CardContent>
@@ -136,7 +124,8 @@ function ResultsContent() {
               </CardContent>
             </Card>
           )}
-          {checklist.length > 1 && checklist[0]?.toLowerCase() !== "not a task" && (
+          {/* Render generated checklist if task param exists */}
+          {task && checklist.length > 1 && checklist[0]?.toLowerCase() !== "not a task" && (
             <>
               <Card className="w-auto transition-transform duration-0 hover:scale-100 p-5 pt-8">
                 <CardContent>
@@ -144,7 +133,6 @@ function ResultsContent() {
                     <h1 className="text-2xl font-bold text-center flex-1">
                       {checklist[0]}
                     </h1>
-                    {listSaved == false && (
                     <Button
                       variant="outline"
                       size="sm"
@@ -153,19 +141,6 @@ function ResultsContent() {
                     >
                       Save
                     </Button>
-                    )}
-                    {listSaved == true && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      aria-label="Saved"
-                      disabled
-                      className="opacity-50 pointer-events-none"
-                    >
-                      Saved
-                      <Check></Check>
-                    </Button>
-                    )}
                   </div>
                   <ul>
                     <li>
@@ -190,8 +165,50 @@ function ResultsContent() {
             </Card>
             </>
           )}
+          {/* Render saved checklist if list param exists and not task */}
+          {!task && listId && loadedSavedChecklist && (
+            <Card className="w-auto transition-transform duration-0 hover:scale-100 p-5 pt-8">
+              <CardContent>
+                <div className="flex items-center justify-center mb-4 w-full gap-4">
+                  <h1 className="text-2xl font-bold text-center flex-1">
+                    {loadedSavedChecklist.title}
+                  </h1>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    aria-label="Saved"
+                    disabled
+                    className="opacity-50 pointer-events-none"
+                  >
+                    Saved
+                    <Check></Check>
+                  </Button>
+                </div>
+                <ul>
+                  <li>
+                    <div className="flex flex-row items-center gap-2 pb-3">
+                      <Checkbox checked />
+                      <p>Generate a checklist with GenList AI</p>
+                    </div>
+                  </li>
+                  {loadedSavedChecklist.items.map((item: string, idx: number) => (
+                  <li key={idx}>
+                    <div className="flex flex-row items-center gap-2 pb-3">
+                      <Checkbox />
+                      {item}
+                    </div>
+                  </li>
+                  ))}
+                </ul>
+                <div className="text-sm text-center mt-2 opacity-50">
+                  <p>Generated by Google Gemini 2.0 Flash</p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
-        <div className="flex items-start justify-center pt-10">
+        {!loading && (
+          <div className="flex items-start justify-center pt-10">
             <Button
                 asChild
                 type="button"
@@ -200,7 +217,8 @@ function ResultsContent() {
             >
                 <Link href="/">Generate Another Checklist</Link>
             </Button>
-        </div>
+          </div>
+        )}
       </main>
     </div>
   )

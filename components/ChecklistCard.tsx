@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { ClipboardList, FileText, CheckCircle, Calendar, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface ChecklistCardProps {
   id: string;
@@ -18,12 +19,8 @@ const categoryIcons: Record<number, React.ReactNode> = {
 };
 
 export function ChecklistCard({ id, title, category, date, onClick, onDelete }: ChecklistCardProps) {
-  function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
-    if (onClick && (e.key === "Enter" || e.key === " ")) {
-      onClick();
-    }
-  }
   const icon = categoryIcons[category] || <ClipboardList size={40} />;
+  const router = useRouter();
 
   function handleDelete(e: React.MouseEvent) {
     e.stopPropagation();
@@ -38,10 +35,11 @@ export function ChecklistCard({ id, title, category, date, onClick, onDelete }: 
     <Card
       id={id}
       className="w-60 h-40 cursor-pointer bg-accent/30 hover:bg-accent/50 relative overflow-hidden group"
-      onClick={onClick}
       tabIndex={0}
       role="button"
-      onKeyDown={handleKeyDown}
+      onClick={() => {
+        router.push(`/results?list=${id}`)
+      }}
     >
       <button
         className="absolute top-2 right-2 z-20 p-1 opacity-0 group-hover:opacity-100 transition-opacity"

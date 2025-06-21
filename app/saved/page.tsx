@@ -12,6 +12,7 @@ function SavedContent() {
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem("savedChecklists") || "[]");
         setSaved(data);
+        document.title = "Saved - GenList AI";
     }, []);
 
     function handleDelete(id: string) {
