@@ -42,7 +42,7 @@ export function ChecklistCard({ id, title, category, date, onClick, onDelete }: 
       }}
     >
       <button
-        className="absolute top-2 right-2 z-20 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+        className="absolute top-2 right-2 z-20 p-1 opacity-0 group-hover:opacity-100 trash-mobile transition-opacity"
         aria-label="Delete"
         onClick={handleDelete}
       >

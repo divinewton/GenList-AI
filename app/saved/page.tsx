@@ -2,9 +2,9 @@
 import { ChecklistCard } from "@/components/ChecklistCard";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Image from 'next/image'
 import Link from "next/link";
 import { useEffect, useState, Suspense } from "react";
+import LoadingCircleSpinner from "@/components/ui/loadingCircle"
 
 function SavedContent() {
     const [saved, setSaved] = useState([]);
@@ -66,7 +66,7 @@ function SavedContent() {
 // Default export wraps SavedContent in Suspense
 export default function SavedPage() {
   return (
-    <Suspense fallback={<div className="flex justify-center items-center h-screen"><Image src="/loading.gif" alt="Loading..." width={100} height={100} className="opacity-75" /></div>}>
+    <Suspense fallback={<div className="flex justify-center items-center h-screen"><LoadingCircleSpinner></LoadingCircleSpinner></div>}>
       <SavedContent />
     </Suspense>
   );

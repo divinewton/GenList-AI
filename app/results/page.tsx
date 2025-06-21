@@ -1,13 +1,14 @@
 "use client"
 import { Suspense, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
-import Image from 'next/image'
 import Link from "next/link"
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card"
 import { useSearchParams } from "next/navigation"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Check, CircleX } from "lucide-react"
+import LoadingCircleSpinner from "@/components/ui/loadingCircle"
+
 
 function ResultsContent() {
   const searchParams = useSearchParams();
@@ -96,13 +97,7 @@ function ResultsContent() {
       <main>
         <div className="flex flex-col items-center px-4 pt-10">
           {loading && 
-            <Image 
-              src="/loading.gif"
-              alt="Loading..." 
-              width={100} 
-              height={100} 
-              className="opacity-75"
-            />
+            <LoadingCircleSpinner></LoadingCircleSpinner>
           }
           {error && 
             <Card className="w-auto transition-transform duration-0 hover:scale-100 p-5">
@@ -129,7 +124,7 @@ function ResultsContent() {
             <>
               <Card className="w-auto transition-transform duration-0 hover:scale-100 p-5 pt-8">
                 <CardContent>
-                  <div className="flex items-center justify-center mb-4 w-full gap-4">
+                  <div className="flex items-center justify-center mb-4 w-full gap-4 col-button">
                     <h1 className="text-2xl font-bold text-center flex-1">
                       {checklist[0]}
                     </h1>
@@ -169,7 +164,7 @@ function ResultsContent() {
           {!task && listId && loadedSavedChecklist && (
             <Card className="w-auto transition-transform duration-0 hover:scale-100 p-5 pt-8">
               <CardContent>
-                <div className="flex items-center justify-center mb-4 w-full gap-4">
+                <div className="flex items-center justify-center mb-4 w-full gap-4 col-button">
                   <h1 className="text-2xl font-bold text-center flex-1">
                     {loadedSavedChecklist.title}
                   </h1>
@@ -227,7 +222,7 @@ function ResultsContent() {
 // Default export wraps ResultsContent in Suspense
 export default function ResultsPage() {
   return (
-    <Suspense fallback={<div className="flex justify-center items-center h-screen"><Image src="/loading.gif" alt="Loading..." width={100} height={100} className="opacity-75" /></div>}>
+    <Suspense fallback={<div className="flex justify-center items-center h-screen"><LoadingCircleSpinner></LoadingCircleSpinner></div>}>
       <ResultsContent />
     </Suspense>
   );

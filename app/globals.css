@@ -175,3 +175,15 @@
     padding-top: calc(var(--spacing) * 20);
   }
 }
+
+@media (max-width: 600px) {
+  .col-button {
+    flex-direction: column;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .trash-mobile {
+    opacity: 100%;
+  }
+}
