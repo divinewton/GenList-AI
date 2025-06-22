@@ -14,36 +14,7 @@ function LoadingCircleSpinner() {
                     ease: "linear",
                 }}
             />
-            <StyleSheet />
         </div>
-    )
-}
-
-/**
- * ==============   Styles   ================
- */
-function StyleSheet() {
-    return (
-        <style>
-            {`
-            .container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 40px;
-                border-radius: 8px;
-            }
-
-            .spinner {
-                width: 75px;
-                height: 75px;
-                border-radius: 50%;
-                border: 8px solid var(--primary);
-                border-top-color: var(--secondary);
-                will-change: transform;
-            }
-            `}
-        </style>
     )
 }
 
