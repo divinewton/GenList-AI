@@ -21,29 +21,37 @@ export async function POST(req: NextRequest) {
 
   const ai = new GoogleGenAI({ apiKey });
 const prompt = `
-You are a helpful assistant that creates checklists, but you also validate your input. Your first step is to analyze the user-defined task: "${task}".
+You are a helpful assistant that creates checklists and strictly validates user input. Follow these instructions exactly:
 
 **Input Validation:**
-If the input is not an actionable task that can be broken down into a checklist (for example, if it is a simple greeting like "hi", a question like "how are you?", or a nonsensical statement), then you must stop and your entire response must be the exact following:
+- Analyze the user-defined task: "${task}".
+- If the input is NOT an actionable task that can be broken down into a checklist (e.g., a greeting, question, or nonsensical statement), your ENTIRE response must be:
 [
   "not a task",
   "not a task"
 ]
-Do not provide any other text, explanation, or JSON if the input is not a valid task.
+- Do NOT provide any other text, explanation, or formatting if the input is not a valid task.
 
 **Checklist Generation:**
-If, and only if, the input is an actionable task, you must generate a checklist by following these instructions precisely:
+If, and only if, the input is an actionable task, generate a checklist as follows:
 
-1.  The entire output must be a single, valid JSON array of strings. Do not include any text or markdown formatting before or after the JSON array.
-2.  The very first string in the array must be a clear and concise title for the checklist, ending with the word "Checklist".
-3.  All subsequent strings in the array must be the individual checklist items.
-4.  The array should contain a total of 5 to 50 strings (1 for the title, plus 4 to 49 for the checklist items).
-5.  Each checklist item should be a short, distinct, and actionable step.
-6.  Do not include any section headings or subtitles as separate items in the array.
+1. Output a single, valid JSON array of strings. Do NOT include any text, markdown, or code block formatting before or after the array.
+2. The first string must be a clear, concise title for the checklist, ending with the type of list ("Packing List", "Shopping List", "To-Do List", or "Checklist").
+3. The second string must be a single number (as a string) representing the category:
+   - "1" for Packing List
+   - "2" for Shopping List
+   - "3" for To-Do List
+   - "4" for any other type of Checklist
+   (Only include the number, no extra text or symbols.)
+4. All following strings must be short, distinct, actionable checklist items.
+5. The array must have 6 to 51 strings (1 title, 1 category, 4-49 items).
+6. Do NOT include section headings, subtitles, or explanations as items.
+7. Do NOT use markdown, code blocks, or any formatting outside the JSON array.
 
-Here is an example of the required output format for a valid task:
+**Example of valid output:**
 [
-  "Weekly Kitchen Deep Clean",
+  "Weekly Kitchen Deep Clean Checklist",
+  "1",
   "Clear all countertops of clutter.",
   "Wipe down all countertops with a multi-surface cleaner.",
   "Clean and disinfect the sink and faucet.",
@@ -51,8 +59,7 @@ Here is an example of the required output format for a valid task:
   "Wipe down all refrigerator shelves and drawers."
 ]
 
-Now, process the task and respond according to all of the instructions above.
-`;
+Now, process the task and respond according to ALL instructions above. Output ONLY the JSON array or the exact ["not a task", "not a task"] if invalid.`;
 
   try {
     const response = await ai.models.generateContent({

@@ -75,6 +75,7 @@ function ResultsContent() {
   interface SavedChecklist {
     id: string;
     title: string;
+    category: number;
     items: string[];
     createdAt: number;
   }
@@ -84,7 +85,8 @@ function ResultsContent() {
     const saved: SavedChecklist = {
       id: crypto.randomUUID(),
       title: checklist[0],
-      items: checklist.slice(1),
+      category: Number(checklist[1]),
+      items: checklist.slice(2),
       createdAt: Date.now(),
     };
     const existing = JSON.parse(localStorage.getItem("savedChecklists") || "[]");
@@ -138,13 +140,15 @@ function ResultsContent() {
                     </Button>
                   </div>
                   <ul>
-                    <li>
-                      <div className="flex flex-row items-center gap-2 pb-3">
-                        <Checkbox checked />
-                        <p>Generate a checklist with GenList AI</p>
-                      </div>
-                    </li>
-                    {checklist.slice(1).map((item, idx) => (
+                    {checklist[1] !== "1" && (
+                      <li>
+                        <div className="flex flex-row items-center gap-2 pb-3">
+                          <Checkbox checked />
+                          <p>Generate a checklist with GenList AI</p>
+                        </div>
+                      </li>
+                    )}
+                    {checklist.slice(2).map((item, idx) => (
                     <li key={idx}>
                       <div className="flex flex-row items-center gap-2 pb-3">
                         <Checkbox />
@@ -180,12 +184,14 @@ function ResultsContent() {
                   </Button>
                 </div>
                 <ul>
-                  <li>
-                    <div className="flex flex-row items-center gap-2 pb-3">
-                      <Checkbox checked />
-                      <p>Generate a checklist with GenList AI</p>
-                    </div>
-                  </li>
+                  {loadedSavedChecklist.category !== 1 && (
+                    <li>
+                      <div className="flex flex-row items-center gap-2 pb-3">
+                        <Checkbox checked />
+                        <p>Generate a checklist with GenList AI</p>
+                      </div>
+                    </li>
+                  )}
                   {loadedSavedChecklist.items.map((item: string, idx: number) => (
                   <li key={idx}>
                     <div className="flex flex-row items-center gap-2 pb-3">

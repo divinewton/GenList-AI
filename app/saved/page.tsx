@@ -51,7 +51,7 @@ function SavedContent() {
                                 key={item.id}
                                 id={item.id}
                                 title={item.title}
-                                category={1}
+                                category={item.category}
                                 date={new Date(item.createdAt).toLocaleDateString()}
                                 onDelete={handleDelete}
                             />

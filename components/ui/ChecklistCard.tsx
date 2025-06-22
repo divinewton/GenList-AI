@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { ClipboardList, FileText, CheckCircle, Calendar, Trash2 } from "lucide-react";
+import { Briefcase, ShoppingCart, ListChecks, ClipboardList, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface ChecklistCardProps {
@@ -12,10 +12,10 @@ interface ChecklistCardProps {
 }
 
 const categoryIcons: Record<number, React.ReactNode> = {
-  1: <ClipboardList size={40} />,
-  2: <FileText size={40} />,
-  3: <CheckCircle size={40} />,
-  4: <Calendar size={40} />,
+  1: <Briefcase size={40} />,
+  2: <ShoppingCart size={40} />,
+  3: <ListChecks size={40} />,
+  4: <ClipboardList size={40} />,
 };
 
 export function ChecklistCard({ id, title, category, date, onClick, onDelete }: ChecklistCardProps) {
