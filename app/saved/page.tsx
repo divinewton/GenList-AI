@@ -1,5 +1,5 @@
 "use client"
-import { ChecklistCard } from "@/components/ChecklistCard";
+import { ChecklistCard } from "@/components/ui/ChecklistCard";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";

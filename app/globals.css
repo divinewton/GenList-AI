@@ -167,7 +167,7 @@
   }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 580px) {
   .no-subtitle {
     display: none;
   }

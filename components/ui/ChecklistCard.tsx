@@ -34,13 +34,27 @@ export function ChecklistCard({ id, title, category, date, onClick, onDelete }: 
   return (
     <Card
       id={id}
-      className="w-60 h-40 cursor-pointer bg-accent/30 hover:bg-accent/50 relative overflow-hidden group"
+      className="w-60 h-40 cursor-pointer hover:bg-background/50 relative overflow-hidden group"
       tabIndex={0}
       role="button"
       onClick={() => {
         router.push(`/results?list=${id}`)
       }}
     >
+      <div
+        className="absolute inset-0 z-0 pointer-events-none dark:hidden"
+        style={{
+          background: "linear-gradient(94deg, rgba(88, 219, 174, 0.50) 7.18%, rgba(150, 221, 196, 0.50) 92.82%)",
+          opacity: 0.5
+        }}
+      />
+      <div
+        className="absolute inset-0 z-0 pointer-events-none hidden dark:block"
+        style={{
+          background: "linear-gradient(274deg, rgba(34, 104, 79, 0.50) 7.18%, rgba(36, 168, 122, 0.50) 92.82%)",
+          opacity: 0.5
+        }}
+      />
       <button
         className="absolute top-2 right-2 z-20 p-1 opacity-0 group-hover:opacity-100 trash-mobile transition-opacity"
         aria-label="Delete"
@@ -49,7 +63,7 @@ export function ChecklistCard({ id, title, category, date, onClick, onDelete }: 
         <Trash2 size={20} className="text-foreground hover:text-foreground/50 cursor-pointer"/>
       </button>
       <CardContent className="flex flex-col items-center justify-center h-full w-full">
-        <span className="mb-2">{icon}</span>
+        <span className="mb-2 text-primary">{icon}</span>
         <span className="text-base font-semibold text-center">{title}</span>
         <div className="text-sm text-center mt-2 opacity-50">
             <p>
