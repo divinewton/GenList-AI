@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Briefcase, ShoppingCart, ListChecks, ClipboardList, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface ChecklistCardProps {
   id: string;
@@ -23,6 +24,10 @@ export function ChecklistCard({ id, title, category, date, onClick, onDelete }: 
   const router = useRouter();
 
   function handleDelete(e: React.MouseEvent) {
+    toast("Checklist Deleted", {
+      description: title,
+      icon: <Trash2 className="text-destructive" />,
+    });
     e.stopPropagation();
     // Remove from localStorage
     const existing = JSON.parse(localStorage.getItem("savedChecklists") || "[]");

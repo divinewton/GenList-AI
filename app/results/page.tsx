@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card"
 import { useSearchParams } from "next/navigation"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Check, CircleX } from "lucide-react"
+import { Check, CircleX, X, Trash2, Download } from "lucide-react"
 import LoadingCircleSpinner from "@/components/ui/loadingCircle"
+import { toast } from "sonner"
 
 
 function ResultsContent() {
@@ -71,6 +72,34 @@ function ResultsContent() {
     }
   }, [checklist, loadedSavedChecklist]);
 
+  function deleteCheck(idx: number) {
+    if (checklist && checklist.length > 0) {
+      toast("Item Removed", {
+        description: checklist[idx + 2],
+        icon: <Trash2 className="text-destructive" />,
+      });
+      setChecklist((prev) => prev.filter((_, i) => i !== idx + 2));
+    } else if (loadedSavedChecklist && loadedSavedChecklist.items.length > 0) {
+      toast("Item Removed", {
+        description: loadedSavedChecklist.items[idx],
+        icon: <Trash2 className="text-destructive" />,
+      });
+      const updatedChecklist = {
+        ...loadedSavedChecklist,
+        items: loadedSavedChecklist.items.filter((_: string, i: number) => i !== idx),
+      };
+      // Update localStorage
+      const saved = JSON.parse(localStorage.getItem("savedChecklists") || "[]");
+      const updatedSaved = saved.map((item: any) =>
+        item.id === loadedSavedChecklist.id ? updatedChecklist : item
+      );
+      localStorage.setItem("savedChecklists", JSON.stringify(updatedSaved));
+      // Reload the checklist from localStorage to ensure state is in sync
+      const reloaded = updatedSaved.find((item: any) => item.id === loadedSavedChecklist.id);
+      setLoadedSavedChecklist(reloaded);
+    }
+  }
+
   // Type for a saved checklist
   interface SavedChecklist {
     id: string;
@@ -92,6 +121,11 @@ function ResultsContent() {
     const existing = JSON.parse(localStorage.getItem("savedChecklists") || "[]");
     localStorage.setItem("savedChecklists", JSON.stringify([saved, ...existing]));
     router.replace("/results?list=" + saved.id);
+    toast("Checklist Saved", {
+      description: checklist[0],
+      icon: <Download className="text-primary" />,
+    });
+    setChecklist([]);
   }
 
   return (
@@ -150,9 +184,16 @@ function ResultsContent() {
                     )}
                     {checklist.slice(2).map((item, idx) => (
                     <li key={idx}>
-                      <div className="flex flex-row items-center gap-2 pb-3">
+                      <div className="flex flex-row items-center gap-2 pb-3 group">
                         <Checkbox />
                         {item}
+                        <button
+                          className="opacity-0 group-hover:opacity-100 transition-opacity"
+                          aria-label="Delete"
+                          onClick={() => deleteCheck(idx)}
+                        >
+                          <X size={20} className="text-destructive hover:text-destructive/50 cursor-pointer"/>
+                        </button>
                       </div>
                     </li>
                     ))}
@@ -194,9 +235,16 @@ function ResultsContent() {
                   )}
                   {loadedSavedChecklist.items.map((item: string, idx: number) => (
                   <li key={idx}>
-                    <div className="flex flex-row items-center gap-2 pb-3">
+                    <div className="flex flex-row items-center gap-2 pb-3 group">
                       <Checkbox />
                       {item}
+                      <button
+                        className="opacity-0 group-hover:opacity-100 transition-opacity"
+                        aria-label="Delete"
+                        onClick={() => deleteCheck(idx)}
+                      >
+                        <X size={20} className="text-destructive hover:text-destructive/50 cursor-pointer"/>
+                      </button>
                     </div>
                   </li>
                   ))}
