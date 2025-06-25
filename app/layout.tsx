@@ -111,7 +111,11 @@ export default function RootLayout({
           </HoverCard>
         </footer>
         </ThemeProvider>
-        <Toaster />
+        <Toaster 
+          toastOptions={{
+            className: "backdrop-blur",
+          }}
+        />
       </body>
     </html>
   );
