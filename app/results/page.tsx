@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Check, CircleX, X, Trash2, Download } from "lucide-react"
 import LoadingCircleSpinner from "@/components/ui/loadingCircle"
 import { toast } from "sonner"
+import EditSheet from "@/components/ui/edit-sheet";
 
 
 function ResultsContent() {
@@ -167,7 +168,7 @@ function ResultsContent() {
                     <Button
                       variant="outline"
                       size="sm"
-                      aria-label="Action"
+                      aria-label="Save"
                       onClick={() => saveChecklistToLocalStorage(checklist)}
                     >
                       Save
@@ -184,16 +185,9 @@ function ResultsContent() {
                     )}
                     {checklist.slice(2).map((item, idx) => (
                     <li key={idx}>
-                      <div className="flex flex-row items-center gap-2 pb-3 group">
+                      <div className="flex flex-row items-center gap-2 pb-3">
                         <Checkbox />
                         {item}
-                        <button
-                          className="opacity-0 group-hover:opacity-100 transition-opacity"
-                          aria-label="Delete"
-                          onClick={() => deleteCheck(idx)}
-                        >
-                          <X size={20} className="text-destructive hover:text-destructive/50 cursor-pointer"/>
-                        </button>
                       </div>
                     </li>
                     ))}
@@ -220,9 +214,9 @@ function ResultsContent() {
                     disabled
                     className="opacity-50 pointer-events-none"
                   >
-                    Saved
                     <Check></Check>
                   </Button>
+                  <EditSheet checklistID={loadedSavedChecklist.id}></EditSheet>
                 </div>
                 <ul>
                   {loadedSavedChecklist.category !== 1 && (
@@ -235,16 +229,9 @@ function ResultsContent() {
                   )}
                   {loadedSavedChecklist.items.map((item: string, idx: number) => (
                   <li key={idx}>
-                    <div className="flex flex-row items-center gap-2 pb-3 group">
+                    <div className="flex flex-row items-center gap-2 pb-3">
                       <Checkbox />
                       {item}
-                      <button
-                        className="opacity-0 group-hover:opacity-100 transition-opacity"
-                        aria-label="Delete"
-                        onClick={() => deleteCheck(idx)}
-                      >
-                        <X size={20} className="text-destructive hover:text-destructive/50 cursor-pointer"/>
-                      </button>
                     </div>
                   </li>
                   ))}

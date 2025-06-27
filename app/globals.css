@@ -183,8 +183,8 @@
 }
 
 @media (hover: none) and (pointer: coarse) {
-  .trash-mobile {
-    opacity: 100%;
+  .trash-mobile, .x-mobile {
+    opacity: 1 !important;
   }
 }
 
