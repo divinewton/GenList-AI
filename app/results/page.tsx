@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card"
 import { useSearchParams } from "next/navigation"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Check, CircleX, X, Trash2, Download } from "lucide-react"
+import { Check, CircleX, Download, FileCheck } from "lucide-react"
 import LoadingCircleSpinner from "@/components/ui/loadingCircle"
 import { toast } from "sonner"
 import EditSheet from "@/components/ui/edit-sheet";
@@ -73,34 +73,6 @@ function ResultsContent() {
     }
   }, [checklist, loadedSavedChecklist]);
 
-  function deleteCheck(idx: number) {
-    if (checklist && checklist.length > 0) {
-      toast("Item Removed", {
-        description: checklist[idx + 2],
-        icon: <Trash2 className="text-destructive" />,
-      });
-      setChecklist((prev) => prev.filter((_, i) => i !== idx + 2));
-    } else if (loadedSavedChecklist && loadedSavedChecklist.items.length > 0) {
-      toast("Item Removed", {
-        description: loadedSavedChecklist.items[idx],
-        icon: <Trash2 className="text-destructive" />,
-      });
-      const updatedChecklist = {
-        ...loadedSavedChecklist,
-        items: loadedSavedChecklist.items.filter((_: string, i: number) => i !== idx),
-      };
-      // Update localStorage
-      const saved = JSON.parse(localStorage.getItem("savedChecklists") || "[]");
-      const updatedSaved = saved.map((item: any) =>
-        item.id === loadedSavedChecklist.id ? updatedChecklist : item
-      );
-      localStorage.setItem("savedChecklists", JSON.stringify(updatedSaved));
-      // Reload the checklist from localStorage to ensure state is in sync
-      const reloaded = updatedSaved.find((item: any) => item.id === loadedSavedChecklist.id);
-      setLoadedSavedChecklist(reloaded);
-    }
-  }
-
   // Type for a saved checklist
   interface SavedChecklist {
     id: string;
@@ -127,6 +99,21 @@ function ResultsContent() {
       icon: <Download className="text-primary" />,
     });
     setChecklist([]);
+  }
+
+  function updateSavedChecklist() {
+    const updatedSaved = JSON.parse(localStorage.getItem("savedChecklists") || "[]");
+    const reloaded = updatedSaved.find((item: any) => item.id === loadedSavedChecklist.id);
+    if (
+      reloaded &&
+      JSON.stringify(reloaded) !== JSON.stringify(loadedSavedChecklist)
+    ) {
+      setLoadedSavedChecklist(reloaded);
+      toast("Checklist Updated", {
+        description: loadedSavedChecklist.title,
+        icon: <FileCheck className="text-primary" />,
+      });
+    }
   }
 
   return (
@@ -172,6 +159,7 @@ function ResultsContent() {
                       onClick={() => saveChecklistToLocalStorage(checklist)}
                     >
                       Save
+                      <Download size={16} />
                     </Button>
                   </div>
                   <ul>
@@ -214,9 +202,13 @@ function ResultsContent() {
                     disabled
                     className="opacity-50 pointer-events-none"
                   >
-                    <Check></Check>
+                    <Check size={16}></Check>
                   </Button>
-                  <EditSheet checklistID={loadedSavedChecklist.id}></EditSheet>
+                  <EditSheet 
+                    checklistID={loadedSavedChecklist.id}
+                    onClose={() => updateSavedChecklist()}
+                  >
+                  </EditSheet>
                 </div>
                 <ul>
                   {loadedSavedChecklist.category !== 1 && (
