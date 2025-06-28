@@ -112,6 +112,7 @@ export default function RootLayout({
         </footer>
         </ThemeProvider>
         <Toaster 
+          position="top-right"
           toastOptions={{
             className: "backdrop-blur",
           }}
