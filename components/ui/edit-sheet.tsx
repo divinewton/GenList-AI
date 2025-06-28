@@ -73,8 +73,8 @@ export default function EditSheet({ checklistID, onClose }: EditSheetProps) {
                     <Pencil size={16} />
                 </Button>
             </SheetTrigger>
-            <SheetContent>
-                <SheetHeader>
+            <SheetContent className="w-full max-w-full sm:max-w-sm pr-4 pl-4 sm:pr-1 sm:pl-1">
+                <SheetHeader className="pb-0">
                     <SheetTitle>Edit checklist</SheetTitle>
                     <SheetDescription>
                         Remove and add items to your generated checklist below.
@@ -83,35 +83,33 @@ export default function EditSheet({ checklistID, onClose }: EditSheetProps) {
                 {loading ? (
                     <LoadingCircleSpinner></LoadingCircleSpinner>
                 ) : (
-                    <>
-                    <div className="flex flex-col flex-1 overflow-y-auto">
-                        <div className="p-4 flex-1">
-                            <ul>
-                                {(loadedSavedChecklist.items || []).map((item: string, idx: number) => (
-                                    <li key={idx}>
-                                        <div className="flex flex-row items-center gap-2 pb-2">
-                                            <Trash2 
-                                                size={20} 
-                                                className="text-destructive/75 cursor-pointer hover:text-destructive/50"
-                                                onClick={() => deleteCheck(idx)}
-                                            />
-                                            {item}
-                                        </div>
-                                        {idx < (loadedSavedChecklist.items?.length || 0) - 1 && (
-                                            <hr className="border-t border-border w-full mb-2" />
-                                        )}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                        <SheetFooter>
-                          <SheetClose asChild>
-                            <Button>Done</Button>
-                          </SheetClose>
-                        </SheetFooter>
-                    </>
+                <div className="flex p-4 overflow-y-auto">
+                    <ul>
+                        {(loadedSavedChecklist.items || []).map((item: string, idx: number) => (
+                        <li key={idx}>
+                            <div className="flex flex-row items-center gap-2 pb-2">
+                                <span className="w-5 flex-shrink-0 flex justify-center">
+                                    <Trash2 
+                                        size={20} 
+                                        className="text-destructive/75 cursor-pointer hover:text-destructive/50"
+                                        onClick={() => deleteCheck(idx)}
+                                    />
+                                </span>
+                                <span>{item}</span>
+                            </div>
+                            {idx < (loadedSavedChecklist.items?.length || 0) - 1 && (
+                                <hr className="border-t border-border w-full mb-2" />
+                            )}
+                        </li>
+                        ))}
+                    </ul>
+                </div>
                 )}
+                <SheetFooter className="pt-0">
+                    <SheetClose asChild>
+                        <Button>Done</Button>
+                    </SheetClose>
+                </SheetFooter>
             </SheetContent>
         </Sheet>
     )

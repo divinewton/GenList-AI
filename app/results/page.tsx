@@ -195,20 +195,22 @@ function ResultsContent() {
                   <h1 className="text-2xl font-bold text-center flex-1">
                     {loadedSavedChecklist.title}
                   </h1>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    aria-label="Saved"
-                    disabled
-                    className="opacity-50 pointer-events-none"
-                  >
-                    <Check size={16}></Check>
-                  </Button>
-                  <EditSheet 
-                    checklistID={loadedSavedChecklist.id}
-                    onClose={() => updateSavedChecklist()}
-                  >
-                  </EditSheet>
+                  <div className="flex items-center justify-center gap-4">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      aria-label="Saved"
+                      disabled
+                      className="opacity-50 pointer-events-none"
+                    >
+                      <Check size={16}></Check>
+                    </Button>
+                    <EditSheet 
+                      checklistID={loadedSavedChecklist.id}
+                      onClose={() => updateSavedChecklist()}
+                    >
+                    </EditSheet>
+                  </div>
                 </div>
                 <ul>
                   {loadedSavedChecklist.category !== 1 && (
