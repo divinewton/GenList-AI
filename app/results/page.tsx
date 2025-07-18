@@ -6,8 +6,10 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card"
 import { useSearchParams } from "next/navigation"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Check, CircleX } from "lucide-react"
+import { Check, CircleX, Download, FileCheck } from "lucide-react"
 import LoadingCircleSpinner from "@/components/ui/loadingCircle"
+import { toast } from "sonner"
+import EditSheet from "@/components/ui/edit-sheet";
 
 
 function ResultsContent() {
@@ -92,6 +94,26 @@ function ResultsContent() {
     const existing = JSON.parse(localStorage.getItem("savedChecklists") || "[]");
     localStorage.setItem("savedChecklists", JSON.stringify([saved, ...existing]));
     router.replace("/results?list=" + saved.id);
+    toast("Checklist Saved", {
+      description: checklist[0],
+      icon: <Download className="text-primary" />,
+    });
+    setChecklist([]);
+  }
+
+  function updateSavedChecklist() {
+    const updatedSaved = JSON.parse(localStorage.getItem("savedChecklists") || "[]");
+    const reloaded = updatedSaved.find((item: any) => item.id === loadedSavedChecklist.id);
+    if (
+      reloaded &&
+      JSON.stringify(reloaded) !== JSON.stringify(loadedSavedChecklist)
+    ) {
+      setLoadedSavedChecklist(reloaded);
+      toast("Checklist Updated", {
+        description: loadedSavedChecklist.title,
+        icon: <FileCheck className="text-primary" />,
+      });
+    }
   }
 
   return (
@@ -133,10 +155,11 @@ function ResultsContent() {
                     <Button
                       variant="outline"
                       size="sm"
-                      aria-label="Action"
+                      aria-label="Save"
                       onClick={() => saveChecklistToLocalStorage(checklist)}
                     >
                       Save
+                      <Download size={16} />
                     </Button>
                   </div>
                   <ul>
@@ -172,16 +195,22 @@ function ResultsContent() {
                   <h1 className="text-2xl font-bold text-center flex-1">
                     {loadedSavedChecklist.title}
                   </h1>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    aria-label="Saved"
-                    disabled
-                    className="opacity-50 pointer-events-none"
-                  >
-                    Saved
-                    <Check></Check>
-                  </Button>
+                  <div className="flex items-center justify-center gap-4">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      aria-label="Saved"
+                      disabled
+                      className="opacity-50 pointer-events-none"
+                    >
+                      <Check size={16}></Check>
+                    </Button>
+                    <EditSheet 
+                      checklistID={loadedSavedChecklist.id}
+                      onClose={() => updateSavedChecklist()}
+                    >
+                    </EditSheet>
+                  </div>
                 </div>
                 <ul>
                   {loadedSavedChecklist.category !== 1 && (

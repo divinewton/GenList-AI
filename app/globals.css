@@ -176,15 +176,15 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .col-button {
     flex-direction: column;
   }
 }
 
 @media (hover: none) and (pointer: coarse) {
-  .trash-mobile {
-    opacity: 100%;
+  .trash-mobile, .x-mobile {
+    opacity: 1 !important;
   }
 }
 
@@ -203,4 +203,11 @@
   border: 8px solid var(--primary);
   border-top-color: var(--secondary);
   will-change: transform;
+}
+
+[data-sonner-toaster][data-sonner-theme=dark] [data-description] {
+  color: var(--foreground) !important;
+}
+[data-sonner-toaster][data-sonner-theme=light] [data-description] {
+  color: var(--foreground) !important;
 }

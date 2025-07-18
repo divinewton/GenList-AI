@@ -12,6 +12,7 @@ import MenuIcons from "@/components/ui/menu-icons"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ExternalLink } from 'lucide-react';
 import VersionText from "@/components/version-text"
+import { Toaster } from "@/components/ui/sonner"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -110,6 +111,12 @@ export default function RootLayout({
           </HoverCard>
         </footer>
         </ThemeProvider>
+        <Toaster 
+          position="top-right"
+          toastOptions={{
+            className: "backdrop-blur",
+          }}
+        />
       </body>
     </html>
   );
